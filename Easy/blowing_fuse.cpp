@@ -38,23 +38,16 @@ int main()
             return 0;
         }
         
-        if(devices[mx-1] > 0) { // switch on
-            sum += devices[mx-1];
-            
-            if(sum > c) {
-                cout<<"Fuse was blown.\n";
-                return 0;
-            }
-            
-            if(max_sum < sum) max_sum = sum;
-            
-            devices[mx-1] *= -1;
-        }
-        else if(devices[mx-1] < 0) { // switch off
-            devices[mx-1] *= -1;
-            sum -= devices[mx-1];
+        sum += devices[mx-1];
+        
+        if(sum > c) {
+            cout<<"Fuse was blown.\n";
+            return 0;
         }
         
+        if(max_sum < sum) max_sum = sum;
+            
+        devices[mx-1] *= -1;
     }
 
     cout<<"Fuse was not blown.\nMaximal consumed current was "<<max_sum<<" A.\n";
