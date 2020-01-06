@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include <stack>
+#include <vector>
 #include <algorithm>
+#include <functional>
 
 using namespace std;
 
@@ -10,75 +11,35 @@ using namespace std;
  * the standard input according to the problem statement.
  **/
 
+
+string printBalancedTernary(int n)  {
+    if(n < 0) {
+        string response = printBalancedTernary(-n);
+        transform(response.begin(), response.end(), response.begin(), [](char c){
+                if(c == 'T') return '1';
+                else if(c == '1') return 'T';
+                return c;
+            });
+        return response;
+    }
+    
+    if(n == 0) return "";
+    
+    if(n%3 == 0) return printBalancedTernary(n/3)+"0";
+    else if(n%3 == 1) return printBalancedTernary(n/3)+"1";
+    else return printBalancedTernary((n/3)+1)+"T";
+}
+
+
 int main()
 {
-    int n;
-    cin >> n; cin.ignore();
-    
-    if(n == 0) {
+    int N;
+    cin >> N; cin.ignore();
+
+    if(N == 0) {
         cout<<"0\n";
         return 0;
     }
-    
-    bool neg = n < 0;
 
-    stack<char> resp;
-    char tmp;
-    int rem = 0;
-    bool prev = false;
-    
-    n = abs(n);
-    
-    while(n) {
-        rem = n%3;
-        n /= 3;
-
-        if(rem == 2) {
-            if(prev) {
-                resp.pop();
-                resp.push('0');
-                resp.push('1');  
-            }
-            else {
-                resp.push('T');
-                resp.push('1');                
-            }
-            prev = true;
-        }
-        else {
-            if(prev) {
-                resp.pop();
-                if(rem == 0) {
-                    resp.push(1);
-                    prev = false;
-                }
-                else {
-                    resp.push('T');
-                    resp.push('1');   
-                    prev = true;
-                }
-            }
-            else {
-                resp.push(rem+'0');
-                prev = false;
-            }
-        }
-    }
-    
-    if(neg) {
-        while(!resp.empty()) {
-            if(resp.top() == '1') cout<<'T';
-            else if(resp.top() == 'T') cout<<'1';
-            else cout<<resp.top();
-            resp.pop();
-        }
-        return 0;
-    }
-    
-    while(!resp.empty()) {
-        cout<<resp.top();
-        resp.pop();
-    }
-    
-    cout<<"\n";
+    cout<<printBalancedTernary(N)<<"\n";
 }
