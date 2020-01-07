@@ -35,27 +35,36 @@ int main()
         }
     }
     
+    
+    for(auto r : grid) {
+        for(auto e : r) {
+            cerr<<e<<" ";
+        }
+        cerr<<"\n";
+    }
+    
+    
     int x=0, y=0;
     bool flag = true;
     
     for (int i = 0; i < H; i++) {
         for (int j = 0; j < W; j++) {
-            flag = true;
+            if(grid[i][j] == 0) {
+                flag = true;
             
-            for(auto d:dirs) {
-                x = i + d.first;
-                y = j + d.second;
-                if(isValid(x, y)) {
-                    if(grid[x][y] != 1) {
+                for(auto d:dirs) {
+                    x = i + d.first;
+                    y = j + d.second;
+                    if(isValid(x, y) && grid[x][y] != 1) {
                         flag = false;
                         break;
                     }
                 }
-            }
-            
-            if(flag) {
-                cout<<j<<" "<<i<<"\n";
-                return 0;
+                
+                if(flag) {
+                    cout<<j<<" "<<i<<"\n";
+                    return 0;
+                }
             }
         }
     }
