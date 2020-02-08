@@ -20,6 +20,34 @@
 //     }
 // };
 
+// class Solution
+// {
+// public:
+//     void subsetUtil(vector<vector<int>> &ret, vector<int> &nums, vector<int> &sol, int ind)
+//     {
+//         ret.emplace_back(sol);
+
+//         for (int i = ind; i < nums.size(); ++i)
+//         {
+//             sol.emplace_back(nums[i]);
+//             subsetUtil(ret, nums, sol, i + 1);
+//             sol.pop_back();
+//         }
+//     }
+
+//     vector<vector<int>> subsets(vector<int> &nums)
+//     {
+//         if (nums.size() == 0)
+//             return {{}};
+//         vector<vector<int>> ret = {};
+//         vector<int> sol;
+
+//         subsetUtil(ret, nums, sol, 0);
+
+//         return ret;
+//     }
+// };
+
 class Solution
 {
 public:
