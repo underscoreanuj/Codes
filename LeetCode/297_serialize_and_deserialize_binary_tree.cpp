@@ -7,6 +7,79 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// class Codec {
+// public:
+
+//     // Encodes a tree to a single string.
+//     string serialize(TreeNode* root) {
+//         if(root == NULL) return "x,";
+
+//         queue<TreeNode*> Q;
+//         Q.push(root);
+//         TreeNode* tmp = NULL;
+//         string ret;
+
+//         while(!Q.empty()) {
+//             tmp = Q.front();
+//             Q.pop();
+
+//             if(tmp) {
+//                 ret += to_string(tmp->val) + ",";
+//                 Q.push(tmp->left);
+//                 Q.push(tmp->right);
+//             }
+//             else ret += "x,";
+//         }
+
+//         int ind = ret.length()-2;
+//         while(ret[ind] == 'x') ind -= 2;
+
+//         return ret.substr(0, ind+2);
+
+//     }
+
+//     vector<TreeNode*> getValues(string data) {
+//         vector<TreeNode*> ret;
+//         size_t cur_pos = 0, pos = 0;
+//         pos = data.find(",", cur_pos);
+//         string tmp;
+//         while(pos != string::npos) {
+//             tmp = data.substr(cur_pos, pos-cur_pos);
+//             if(tmp == "x") ret.push_back(NULL);
+//             else ret.emplace_back(new TreeNode(stoi(tmp)));
+//             cur_pos = pos+1;
+//             pos = data.find(",", cur_pos);
+//         }
+
+//         return ret;
+//     }
+
+//     // Decodes your encoded data to tree.
+//     TreeNode* deserialize(string data) {
+//         vector<TreeNode*> tree = getValues(data);
+//         int ind = 1;
+
+//         for(int i=0; i<tree.size(); ++i) {
+//             if(tree[i]) {
+//                 if(ind < tree.size()) tree[i]->left = tree[ind];
+//                 if(ind+1 < tree.size()) tree[i]->right = tree[ind+1];
+//                 ind +=2;
+//             }
+//         }
+
+//         return tree[0];
+//     }
+// };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Codec
 {
 public:
