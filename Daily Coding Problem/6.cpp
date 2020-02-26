@@ -16,70 +16,68 @@ using namespace std;
 
 struct Node
 {
-    int data;
-    Node *both;
+    int data;   // to store data
+    Node *both; // common pointer for previous and next node
 };
 
 class DLL
 {
     int size;
-    Node *head;
-    Node *tail;
+    Node *head; // points to head (start)
+    Node *tail; // point to tail (end)
 
 public:
     DLL()
     {
-        this->size = 0;
+        this->size = 0; // initialize with a size of 0
         this->head = NULL;
         this->tail = NULL;
     }
 
     Node *XOR(Node *a, Node *b)
     {
+        // uintptr_t is an unsigned integer pointer data type
+        // which is generally used when we intend to perform integeral operation on a pointer
+        // (like in this case XOR operation)
         return (Node *)((uintptr_t)a ^ (uintptr_t)b);
     }
 
+    // insert data at end
     void push_back(int data)
     {
         Node *new_node = new Node();
         new_node->data = data;
         new_node->both = XOR(this->tail, NULL);
 
-        if (this->tail)
-        {
+        if (this->tail) // if a tail already exists, its "both" must be updated
             this->tail->both = XOR(XOR(this->tail->both, NULL), new_node);
-        }
-        if (this->head == NULL)
-        {
+        if (this->head == NULL) // if this is the first node head must also be updated
             this->head = new_node;
-        }
 
         this->tail = new_node;
-        ++this->size;
+        ++this->size; // increment size of list
     }
 
+    //insert data at the begining
     void push_front(int data)
     {
         Node *new_node = new Node();
         new_node->data = data;
         new_node->both = XOR(NULL, this->head);
 
-        if (this->head)
-        {
+        if (this->head) // if a head already exists, its "both" must be updated
             this->head->both = XOR(new_node, XOR(NULL, this->head->both));
-        }
-        if (this->tail == NULL)
-        {
+        if (this->tail == NULL) // if this is the first node tail must also be updated
             this->tail = new_node;
-        }
 
         this->head = new_node;
-        ++this->size;
+        ++this->size; // increment size of list
     }
 
+    // fetch the data at given index [0, this->size-1]
     int get(int idx)
     {
-        if (idx + 1 > this->size || idx < 0)
+        if (idx + 1 > this->size || idx < 0) // check for invalid index
         {
             cout << "index out of bounds!!!";
             return 0;
@@ -89,7 +87,7 @@ public:
         Node *prev = NULL;
         Node *next = NULL;
 
-        while (idx--)
+        while (idx--) // iterate over list
         {
             next = XOR(it->both, prev);
             prev = it;
@@ -99,9 +97,10 @@ public:
         return it->data;
     }
 
+    // delete the node at given index [0, this->size-1]
     void delete_node(int idx)
     {
-        if (idx + 1 > this->size || idx < 0)
+        if (idx + 1 > this->size || idx < 0) // check for invalid index
         {
             cout << "index out of bounds!!!";
             return;
@@ -111,7 +110,7 @@ public:
         Node *prev = NULL;
         Node *next = NULL;
 
-        while (idx--)
+        while (idx--) // iterate over list
         {
             next = XOR(it->both, prev);
             prev = it;
@@ -119,36 +118,30 @@ public:
         }
 
         next = XOR(it->both, prev);
-        if (prev)
-        {
-            prev->both = XOR(XOR(prev->both, it), next);
-        }
-        else
-        {
-            this->head = next;
-        }
-        if (next)
-        {
-            next->both = XOR(XOR(next->both, it), prev);
-        }
-        else
-        {
-            this->tail = prev;
-        }
 
-        delete (it);
+        if (prev) // node has a previous node which needs to be updated
+            prev->both = XOR(XOR(prev->both, it), next);
+        else // node has no previous node, i.e. head node is being deleted
+            this->head = next;
+        if (next) // node has a next node which needs to be updated
+            next->both = XOR(XOR(next->both, it), prev);
+        else // node has no next node, i.e. tail node is being deleted
+            this->tail = prev;
+
+        delete (it); // remove the node
     }
 
+    // print the list
     void print()
     {
-        if (this->head == NULL)
+        if (this->head == NULL) // check if empty
             return;
 
         Node *it = this->head;
         Node *prev = NULL;
         Node *next = NULL;
 
-        while (it)
+        while (true) // iterate till end
         {
             cout << it->data << " ";
             if (it == this->tail)
@@ -165,11 +158,11 @@ public:
 int main()
 {
     DLL dll;
-    dll.push_back(111);
+    dll.push_back(78);
     dll.push_front(7);
     dll.push_front(2);
     dll.push_front(3);
-    dll.push_back(111);
+    dll.push_back(15);
     dll.push_front(1);
     dll.push_back(17);
     dll.print();
