@@ -1,0 +1,34 @@
+function getSymOfTwo(array1, array2) {
+  // find symmetric difference
+  let result1 = array1.filter(e => array2.indexOf(e) == -1);
+  let result2 = array2.filter(e => array1.indexOf(e) == -1);
+  
+  // merge together
+  let result = result1.concat(result2)
+
+  // make unique
+  result = result.filter((e, i) => result.indexOf(e) === i);
+  
+  return result;
+}
+
+function getSymUtil(arrayList, l, r) {
+  if(l === r) return arrayList[l];
+  if(r-l === 1) return getSymOfTwo(arrayList[l], arrayList[r]);
+
+  let mid = (l + r)>>1;
+  let left = getSymUtil(arrayList, l, mid);
+  let right = getSymUtil(arrayList, mid+1, r);
+  
+  return getSymOfTwo(left, right);
+}
+
+function sym(...args) {
+  console.log(args);
+  if(args.length < 2) return args[0];
+  let tt = getSymUtil(args, 0, args.length-1);
+
+  return tt;
+}
+
+sym([1, 2, 5], [2, 3, 5], [3, 4, 5]);

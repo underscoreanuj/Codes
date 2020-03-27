@@ -1,0 +1,37 @@
+function swap(array, i, j) {
+  let x = array[i];
+  array[i] = array[j];
+  array[j] = x;
+}
+
+function isValid(array) {
+  for(let i=0; i<array.length-1; ++i) {
+    if(array[i] === array[i+1]) return false;
+  }
+  return true;
+}
+
+function generatePermutations(chars, idx, result) {
+  if(idx === chars.length) {
+    if(isValid(chars)) result.push(chars);
+    // console.log(chars, result)
+    return;
+  }
+
+  for(let i=idx; i<chars.length; ++i) {
+    swap(chars, idx, i);
+    generatePermutations(chars, idx+1, result);
+    swap(chars, idx, i);
+  }
+}
+
+function permAlone(str) {
+  let chars = [].concat(...str);
+  let result = []
+  generatePermutations(chars, 0, result);
+  console.log(result.length)
+
+  return result.length;
+}
+
+permAlone('aab');
