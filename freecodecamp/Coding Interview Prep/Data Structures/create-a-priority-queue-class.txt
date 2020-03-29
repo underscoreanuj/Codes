@@ -21,6 +21,10 @@ function PriorityQueue () {
         return this.collection[i][1];
     }
 
+/*
+  the heap based approach is not stable
+*/
+
     // this.heapify = function(i) {
     //   let l = 2*i+1;
     //   let r = 2*i+2;
