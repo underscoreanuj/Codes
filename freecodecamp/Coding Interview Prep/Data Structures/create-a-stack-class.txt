@@ -1,0 +1,32 @@
+function Stack() {
+  var collection = [];
+  this.print = function() {
+    console.log(collection);
+  };
+  // Only change code below this line
+  this.clear = function() {
+    collection = [];
+  }
+
+  this.isEmpty = function() {
+    return collection.length === 0;
+  }
+
+  this.peek = function() {
+    if(!this.isEmpty())
+      return collection[collection.length-1];
+  }
+
+  this.push = function(data) {
+    collection.push(data);
+  }
+
+  this.pop = function() {
+    if(!this.isEmpty()) {
+      let x = this.peek();
+      collection.pop();
+      return x;
+    }
+  }
+  // Only change code above this line
+}
