@@ -1,0 +1,39 @@
+function partition(array, l, r) {
+  let i = l+1, j = r;
+  while(i<=j) {
+    if(array[i] > array[l]) {
+      let x = array[i];
+      array[i] = array[j];
+      array[j] = x;
+      --j;
+    }
+    else ++i;
+  }
+  let x = array[j];
+  array[j] = array[l];
+  array[l] = x;
+
+  return j;
+}
+
+function quickSortUtil(array, l, r) {
+  if(l<r) {
+    let p = partition(array, l, r);
+    
+    if(p-1 > l) quickSortUtil(array, l, p-1);
+    if(p+1 < r) quickSortUtil(array, p+1, r);
+  }
+}
+
+function quickSort(array) {
+  // change code below this line
+  quickSortUtil(array, 0, array.length-1);
+
+  // change code above this line
+  return array;
+}
+
+// test array:
+// [1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92]
+
+quickSort([1, 4, 2, 8, 345, 123, 43, 32, 5643, 63, 123, 43, 2, 55, 1, 234, 92])
