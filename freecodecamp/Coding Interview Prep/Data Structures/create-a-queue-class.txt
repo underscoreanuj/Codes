@@ -1,0 +1,33 @@
+function Queue() {
+  var collection = [];
+  this.print = function() {
+    console.log(collection);
+  };
+  // Only change code below this line
+  this.enqueue = function(data) {
+    collection.push(data);
+  }
+
+  this.dequeue = function() {
+    let x = this.front();
+    if(collection.length > 0)
+      collection.shift();
+    return x;
+  }
+
+  this.front = function() {
+    if(collection.length > 0)
+      return collection[0];
+    return -1;
+  }
+
+  this.size = function() {
+    return collection.length;
+  }
+
+  this.isEmpty = function() {
+    return this.size() === 0;
+  }
+
+  // Only change code above this line
+}
