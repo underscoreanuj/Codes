@@ -1,0 +1,3 @@
+var bufferSize = 64;
+var buffer = new ArrayBuffer(bufferSize);
+var i32View = new Int32Array(buffer);
