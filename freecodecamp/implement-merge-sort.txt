@@ -1,0 +1,47 @@
+function mergeTwoSortedArrays(array1, array2) {
+  let i = 0, j = 0;
+  let m = array1.length, n = array2.length;
+  let result = [];
+
+  while(i<m && j < n) {
+    if(array1[i] <= array2[j]) {
+      result.push(array1[i]);
+      ++i;
+    }
+    else {
+      result.push(array2[j]);
+      ++j;
+    }
+  }
+  while(i<m) {
+    result.push(array1[i]);
+    ++i;
+  }
+  while(j<n) {
+    result.push(array2[j]);
+    ++j;
+  }
+
+  return result;
+}
+
+function mergeSortUtil(array, l, r) {
+  if(l == r) return [array[l]];
+  if(l < r) {
+    let mid = l + ((r-l)>>1);
+    let left = mergeSortUtil(array, l, mid);
+    let right = mergeSortUtil(array, mid+1, r);
+
+    return mergeTwoSortedArrays(left, right);
+  }
+}
+
+function mergeSort(array) {
+  // change code below this line
+  let res = mergeSortUtil(array, 0, array.length-1);
+
+  // change code above this line
+  return res;
+}
+
+mergeSort([1,2,3,4,5]);
