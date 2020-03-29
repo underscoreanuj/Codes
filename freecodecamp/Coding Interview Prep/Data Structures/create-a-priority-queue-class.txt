@@ -1,0 +1,87 @@
+function PriorityQueue () {
+    this.collection = [];
+    this.printCollection = function() {
+      console.log(this.collection);
+    };
+    // Only change code below this line
+    Array.prototype.resize = function(newSize, defaultValue=0) {
+      while(newSize > this.length)
+        this.push(defaultValue);
+      this.length = newSize;
+    }
+
+    Array.prototype.swap = function(i, j) {
+      let x = this[i];
+      this[i] = this[j];
+      this[j] = x;
+    }
+
+    this.getPriority = function(i) {
+      if(i<this.collection.length)
+        return this.collection[i][1];
+    }
+
+    // this.heapify = function(i) {
+    //   let l = 2*i+1;
+    //   let r = 2*i+2;
+    //   let idx = i;
+
+    //   if(this.getPriority(l) < this.getPriority(idx))
+    //     idx = l;
+    //   if(this.getPriority(r) < this.getPriority(idx))
+    //     idx = r;
+      
+    //   if(idx !== i) {
+    //     this.collection.swap(i, idx);
+    //     this.heapify(idx);
+    //   }
+    // }
+
+    // this.enqueue = function(data) {
+    //   this.collection.push(data);
+    //   let i = this.collection.length-1;
+
+    //   while(i>0 && this.getPriority(((i-1)>>1)) > this.getPriority(i)) {
+    //     this.collection.swap(i, ((i-1)>>1));
+    //     i = ((i-1)>>1);
+    //   }
+    // }
+
+    // this.dequeue = function() {
+    //   if(!this.isEmpty()) {
+    //     let res = this.collection[0];
+    //     this.collection.swap(0, this.collection.length-1);
+    //     this.collection.resize(this.collection.length-1);
+    //     this.heapify(0);
+
+    //     return res;
+    //   }
+    //   return -1;
+    // }
+
+    this.enqueue = function(data) {
+      this.collection.push(data);
+      let i = this.collection.length-2;
+      while(i>=0 && this.getPriority(i) > this.getPriority(i+1)) {
+        this.collection.swap(i, i+1);
+        --i;
+      }
+    }
+
+    this.dequeue = function() {
+      if(!this.isEmpty()) {
+        return this.collection.shift()[0];
+      }
+      return -1;
+    }
+
+    this.size = function() {
+      return this.collection.length;
+    }
+
+    this.isEmpty = function() {
+      return this.size() === 0;
+    }
+
+    // Only change code above this line
+}
