@@ -1,0 +1,48 @@
+class CircularQueue {
+   constructor(size) {
+
+     this.queue = [];
+     this.read = 0;
+     this.write = 0;
+     this.max = size - 1;
+
+     while (size > 0) {
+        this.queue.push(null);
+        size--;
+     }
+   }
+
+   print() {
+     return this.queue;
+   }
+
+   next(i) {
+     return (i+1)%this.queue.length;
+   }
+
+   enqueue(item) {
+    // Only change code below this line
+    if(this.queue[this.write] === null)
+      this.queue[this.write] = item;
+    let nextIdx = this.next(this.write);
+    if(this.queue[nextIdx] === null) {
+      this.write = nextIdx;
+      return item;
+    }
+    return null;
+    // Only change code above this line
+   }
+
+   dequeue() {
+    // Only change code below this line
+    let res = this.queue[this.read];
+    this.queue[this.read] = null;
+    let nextIdx = this.next(this.read);
+    if(this.queue[nextIdx] !== null) {
+      this.read = nextIdx;
+    }
+
+    return res;
+    // Only change code above this line
+   }
+}
