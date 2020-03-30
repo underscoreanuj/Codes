@@ -1,0 +1,13 @@
+function checkSet(arrToBeSet, checkValue){
+
+   // change code below this line
+   let set = new Set(arrToBeSet);
+   if(set.has(checkValue)) {
+      return [true, set.size];
+   }
+   return [false, set.size];
+   // change code above this line
+
+}
+
+checkSet([ 1, 2, 3], 2); // Should return [ true, 3 ]
