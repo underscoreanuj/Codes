@@ -1,0 +1,39 @@
+var Map = function() {
+  this.collection = {};
+  // change code below this line
+  this.add = function(key, value) {
+    this.collection[key] = value;
+  }
+
+  this.remove = function(key) {
+    delete this.collection[key];
+  }
+
+  this.get = function(key) {
+    return this.collection[key];
+  }
+
+  this.has = function(key) {
+    return this.collection[key] !== undefined;
+  }
+
+  this.values = function() {
+    let result = [];
+    Object.keys(this.collection).forEach(e => {
+      result.push(this.collection[e]);
+    })
+
+    return result;
+  }
+
+  this.size = function() {
+    return Object.keys(this.collection).length;
+  }
+
+  this.clear = function() {
+    Object.keys(this.collection).forEach(e => {
+      this.remove(e);
+    });
+  }
+  // change code above this line
+};
