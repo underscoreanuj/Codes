@@ -1,0 +1,67 @@
+var displayTree = tree => console.log(JSON.stringify(tree, null, 2));
+var Node = function () {
+  this.keys = new Map();
+  this.end = false;
+  this.setEnd = function () {
+    this.end = true;
+  };
+  this.isEnd = function () {
+    return this.end;
+  };
+};
+var Trie = function () {
+  // change code below this line
+  this.root = new Node();
+
+  this.add = function (word, node = this.root, idx = 0) {
+    if (idx === word.length)
+      return;
+
+    let newNode = new Node();
+    if (idx === word.length - 1)
+      newNode.setEnd();
+
+    if (node.keys[word[idx]] === undefined) {
+      node.keys[word[idx]] = newNode;
+      this.add(word, newNode, idx + 1);
+    }
+    else {
+      this.add(word, node.keys[word[idx]], idx + 1)
+    }
+
+  }
+
+  this.print = function () {
+    let words = [];
+
+    function printUtil(node, word = "") {
+      if (node.isEnd()) {
+        words.push(word);
+      }
+
+      Object.keys(node.keys).forEach(k => {
+        printUtil(node.keys[k], word + k);
+      });
+
+    }
+
+    printUtil(this.root);
+
+    return words;
+  }
+
+  this.isWord = function (word, node = this.root, idx = 0) {
+    if (idx === word.length - 1) {
+      if (!node.keys[word[idx]].isEnd() || node.keys[word[idx]] === undefined) {
+        return false;
+      }
+      return true;
+    }
+    if (node.keys[word[idx]] === undefined) {
+      return false;
+    }
+
+    return this.isWord(word, node.keys[word[idx]], idx + 1);
+  }
+  // change code above this line
+};
