@@ -1,0 +1,56 @@
+var MaxHeap = function() {
+  // change code below this line
+  Array.prototype.swap = function(i, j) {
+    let x = this[i];
+    this[i] = this[j];
+    this[j] = x;
+  }
+
+  this.heap = [];
+
+  this.insert = function(data) {
+    this.heap.push(data);
+    let idx = this.heap.length-1;
+    let parent = ((idx-1)>>1);
+
+    while(idx > 0 && this.heap[parent] < this.heap[idx]) {
+      this.heap.swap(idx, parent);
+      idx = parent;
+      parent = ((idx-1)>>1)
+    }
+  }
+
+  this.print = function() {
+    return this.heap;
+  }
+
+  this.heapify = function(idx) {
+    let l = 2*idx+1;
+    let r = 2*idx+2;
+    let new_idx = idx;
+
+    if(this.heap[l] > this.heap[new_idx])
+      new_idx = l;
+    if(this.heap[r] > this.heap[new_idx])
+      new_idx = r;
+
+    if(new_idx !== idx) {
+      this.heap.swap(idx, new_idx);
+      this.heapify(new_idx);
+    }
+  }
+
+  this.remove = function() {
+    if(this.heap.length === 0)
+      return null;
+
+    let result = this.heap[0];
+    this.heap.swap(0, this.heap.length-1);
+    this.heap.pop();
+
+    this.heapify(0);
+
+    return result;
+  }
+  // change code above this line
+};
