@@ -1,0 +1,32 @@
+function dfs(graph, root) {
+  let result = [root];
+
+  let vis = [];
+  for (let i = 0; i < graph.length; ++i)
+    vis.push(false);
+
+  function dfsUtil(graph, root, vis) {
+    if (vis[root]) return;
+
+    vis[root] = true;
+    for (let i = 0; i < graph[root].length; ++i) {
+      let ele = graph[root][i];
+      if (ele === 1 && !vis[i]) {
+        result.push(i);
+        dfsUtil(graph, i, vis);
+      }
+    }
+  }
+
+  dfsUtil(graph, root, vis);
+
+  return result;
+}
+
+var exDFSGraph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 1],
+  [0, 0, 1, 0]
+]
+console.log(dfs(exDFSGraph, 1));
