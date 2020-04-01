@@ -19,10 +19,15 @@ ll getSumofMultiples(ll n)
     // these numbers should only be counted once
     ll by_fifteen = n / 15; // count of numbers which are multiple of 15
 
-    // sum of AP = n/2(2*a+(n-1)*d)
-    result = (by_three * (2 * 3 + (by_three - 1) * 3)) / 2;
-    result += (by_five * (2 * 5 + (by_five - 1) * 5)) / 2;
-    result -= (by_fifteen * (2 * 15 + (by_fifteen - 1) * 15)) / 2;
+    // clean solution  (3 + 6 + 9) = 3(1 + 2 + 3) = 3*(sum of n terms) = 3*n*(n+1)/2
+    result = (3 * (by_three * (by_three + 1))) / 2;
+    result += (5 * (by_five * (by_five + 1))) / 2;
+    result -= (15 * (by_fifteen * (by_fifteen + 1))) / 2;
+
+    // // alternative solution: sum of AP = n/2(2*a+(n-1)*d)
+    // result = (by_three*(2*3+(by_three-1)*3))/2;
+    // result += (by_five*(2*5+(by_five-1)*5))/2;
+    // result -= (by_fifteen*(2*15+(by_fifteen-1)*15))/2;
 
     return result;
 }
