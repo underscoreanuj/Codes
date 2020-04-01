@@ -1,0 +1,44 @@
+function bfs(graph, root) {
+  // Distance object returned
+  var nodesLen = {};
+  
+  let vis = [];
+  for(let i=0; i<graph.length; ++i) 
+    vis.push(false);
+  let queue = [root];
+  let dist = -1;
+
+  while(queue.length) {
+    let q_size = queue.length;
+    ++dist;
+
+    while(q_size--) {
+      let node = queue.shift();
+      nodesLen[node] = dist;
+      vis[node] = true;
+
+      for(let i=0; i<graph[node].length; ++i) {
+        let ele = graph[node][i];
+        if(!vis[i] && ele === 1) {
+          queue.push(i);
+        }
+      }
+    }
+    
+  }
+
+  for(let i=0; i<graph.length; ++i) {
+    if(!vis[i])
+      nodesLen[i] = Infinity;
+  }
+
+  return nodesLen;
+};
+
+var exBFSGraph = [
+  [0, 1, 0, 0],
+  [1, 0, 1, 0],
+  [0, 1, 0, 1],
+  [0, 0, 1, 0]
+];
+console.log(bfs(exBFSGraph, 3));
