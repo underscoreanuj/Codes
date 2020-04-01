@@ -1,0 +1,8 @@
+var undirectedAdjList = {};
+undirectedAdjList['Jeff'] = ['James', 'Jenny'];
+undirectedAdjList['James'] = ['Jeff'];
+
+undirectedAdjList['Jill'] = ['Jenny'];
+undirectedAdjList['Jenny'] = ['Jill'];
+
+undirectedAdjList['Jenny'] = ['Jeff'];
