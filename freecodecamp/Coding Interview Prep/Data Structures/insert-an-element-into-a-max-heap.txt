@@ -1,0 +1,25 @@
+var MaxHeap = function() {
+  // change code below this line
+  Array.prototype.swap = function(i ,j) {
+    let x = this[i];
+    this[i] = this[j];
+    this[j] = x;
+  }
+
+  this.heap = []
+
+  this.insert = function(data) {
+    this.heap.push(data);
+    let idx = this.heap.length-1;
+
+    while(idx > 0 && this.heap[((idx-1)>>1)] < this.heap[idx]) {
+      this.heap.swap(idx, ((idx-1)>>1));
+      idx = ((idx-1)>>1);
+    }
+  }
+
+  this.print = function() {
+    return this.heap;
+  }
+  // change code above this line
+};
