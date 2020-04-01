@@ -1,0 +1,17 @@
+var adjMatUndirected = [];
+
+for (let i = 0; i < 5; ++i) {
+    adjMatUndirected.push([0, 0, 0, 0, 0])
+}
+
+adjMatUndirected[0][3] = 1;
+adjMatUndirected[3][0] = 1;
+
+adjMatUndirected[0][2] = 1;
+adjMatUndirected[2][0] = 1;
+
+adjMatUndirected[4][2] = 1;
+adjMatUndirected[2][4] = 1;
+
+adjMatUndirected[3][4] = 1;
+adjMatUndirected[4][3] = 1;
