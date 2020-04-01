@@ -1,0 +1,78 @@
+// check if array is sorted
+function isSorted(arr) {
+  var check = i =>
+    i == arr.length - 1 ? true : arr[i] > arr[i + 1] ? false : check(i + 1);
+  return check(0);
+}
+// generate a randomly filled array
+var array = new Array();
+(function createArray(size = 5) {
+  array.push(+(Math.random() * 100).toFixed(0));
+  return size > 1 ? createArray(size - 1) : undefined;
+})(25);
+var MinHeap = function() {
+  // change code below this line
+  Array.prototype.swap = function(i, j) {
+    let x = this[i];
+    this[i] = this[j];
+    this[j] = x;
+  }
+
+  this.heap = []
+
+  this.insert = function(data) {
+    this.heap.push(data);
+    let idx = this.heap.length-1;
+    let parent = ((idx-1)>>1);
+
+    while(idx > 0 && this.heap[parent] > this.heap[idx]) {
+      this.heap.swap(idx, parent);
+      idx = parent;
+      parent = ((idx-1)>>1);
+    }
+  }
+
+  this.heapify = function(idx) {
+    let l = 2*idx+1;
+    let r = 2*idx+2;
+    let new_idx = idx;
+    let len = this.heap.length;
+
+    if(l < len && this.heap[l] < this.heap[new_idx])
+      new_idx = l;
+    if(r < len && this.heap[r] < this.heap[new_idx])
+      new_idx = r;
+
+    if(new_idx !== idx) {
+      this.heap.swap(idx, new_idx);
+      this.heapify(new_idx);
+    }
+  }
+
+  this.remove = function() {
+    if(this.heap.length === 0)
+      return null;
+
+    let res = this.heap[0];
+
+    this.heap.swap(0, this.heap.length-1);
+    this.heap.pop();
+
+    this.heapify(0);
+
+    return res;
+  }
+
+  this.sort = function() {
+    let result = [];
+
+    let ele = this.remove();
+    while(ele !== null) {
+      result.push(ele);
+      ele = this.remove();
+    }
+
+    return result;
+  }
+  // change code above this line
+};
