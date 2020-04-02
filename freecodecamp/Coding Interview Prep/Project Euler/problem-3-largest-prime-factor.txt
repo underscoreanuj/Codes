@@ -1,0 +1,22 @@
+function largestPrimeFactor(number) {
+  // Good luck!
+  let result = 2;
+
+  while (number % 2 === 0) number >>= 1;
+
+  if (number === 1) return 2;
+
+  for (let i = 3; i * i < number; i += 2) {
+    if (number % i === 0) {
+      result = i;
+      while (number % i === 0) number /= i;
+    }
+  }
+
+  if (number > 2)
+    return number;
+
+  return result;
+}
+
+largestPrimeFactor(13195);
