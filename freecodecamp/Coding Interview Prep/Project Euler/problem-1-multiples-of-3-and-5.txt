@@ -1,0 +1,17 @@
+function multiplesOf3and5(number) {
+  // Good luck!
+  --number;
+  let by_three = Math.floor(number / 3);
+  let by_five = Math.floor(number / 5);
+  let by_fifteen = Math.floor(number / 15);
+
+  let result = 0;
+
+  result = (3 * by_three * (by_three + 1)) / 2;
+  result += (5 * by_five * (by_five + 1)) / 2;
+  result -= (15 * by_fifteen * (by_fifteen + 1)) / 2;
+
+  return result;
+}
+
+multiplesOf3and5(1000);
