@@ -1,0 +1,18 @@
+function fiboEvenSum(n) {
+  // You can do it!
+  let result = 0;
+
+  let f = 1, s = 2;
+
+  while (s <= n) {
+    if (~s & 1)
+      result += s;
+
+    s = f + s;
+    f = s - f;
+  }
+
+  return result;
+}
+
+fiboEvenSum(10);
