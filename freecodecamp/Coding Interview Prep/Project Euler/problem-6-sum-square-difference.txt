@@ -1,0 +1,6 @@
+function sumSquareDifference(n) {
+  // Good luck!
+  return (n*(3*n*n*n + 2*n*n - 3*n - 2))/12;
+}
+
+sumSquareDifference(100);
