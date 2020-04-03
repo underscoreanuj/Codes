@@ -1,0 +1,33 @@
+function isPalin(n) {
+  if(n < 0 || (n%10 == 0 && n != 0)) return false;
+
+  let x = 0;
+  let y = n;
+  while(x < y) {
+    x = x*10 + y%10;
+    y = Math.floor(y/10);
+  }
+
+  return x === y || Math.floor(x/10) === y;
+}
+
+function largestPalindromeProduct(n) {
+  // Good luck!
+  let result = 0;
+  let product = 0;
+  let minimum = Math.pow(10, n-1);
+  let maximum = Math.pow(10, n)-1;
+
+  for(let i=maximum; i>=minimum; --i) {
+    for(let j=maximum; j>=minimum; --j) {
+      product = i*j;
+      if(product <= result) break;
+      if(isPalin(product))
+        result = Math.max(result, product);
+    }
+  }
+  
+  return result;
+}
+
+largestPalindromeProduct(3);
