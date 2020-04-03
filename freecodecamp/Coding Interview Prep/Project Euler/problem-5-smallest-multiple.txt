@@ -1,0 +1,51 @@
+function generateSieve(n) {
+  let seive = [];
+  for(let i=0; i<=n; ++i) {
+    seive.push(true);
+  }
+  
+  seive[0] = false;
+  seive[1] = false;
+
+
+  for(let i=2; i*i<seive.length; ++i) {
+    if(seive[i]) {
+      for(let j=i*i; j<seive.length; j+=i)
+        seive[j] = false;
+    }
+  }
+
+  return seive;
+}
+
+function getFirstNPrimes(n) {
+  let result = [];
+  let seive = generateSieve(n);
+
+  for(let i=0; i<=n; ++i) {
+    if(seive[i]) result.push(i)
+  }
+
+  return result;
+}
+
+function smallestMult(n) {
+  // Good luck!
+  let result = 1;
+  let primes = getFirstNPrimes(n);
+  let flag = true;
+
+  for(let p of primes) {
+    if(flag && p*p > n) flag = false;
+    if(flag) {
+      result *= Math.pow(p, Math.floor(Math.log(n)/Math.log(p)));
+    }
+    else {
+      result *= p;
+    }
+  }
+
+  return result;
+}
+
+smallestMult(20);
