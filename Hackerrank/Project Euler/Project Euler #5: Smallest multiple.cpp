@@ -30,21 +30,21 @@ using namespace std;
 //     return result;
 // }
 
-bool seive[50];
+bool sieve[50];
 
-void generateSeive()
+void generateSieve()
 {
     for (int i = 0; i < 50; ++i)
-        seive[i] = true;
+        sieve[i] = true;
 
-    seive[0] = seive[1] = false;
+    sieve[0] = sieve[1] = false;
     for (int i = 2; i * i < 50; ++i)
     {
-        if (seive[i])
+        if (sieve[i])
         {
             for (int j = i * i; j < 50; j += i)
             {
-                seive[j] = false;
+                sieve[j] = false;
             }
         }
     }
@@ -62,7 +62,7 @@ ll getSmallestMultipleOptimal(ll n)
     vector<int> primes;
     for (int i = 2; i <= n; ++i)
     {
-        if (seive[i])
+        if (sieve[i])
             primes.push_back(i);
     }
 
@@ -91,7 +91,7 @@ int main()
     ll t = 0, n = 0;
     cin >> t;
 
-    generateSeive();
+    generateSieve();
 
     while (t--)
     {
