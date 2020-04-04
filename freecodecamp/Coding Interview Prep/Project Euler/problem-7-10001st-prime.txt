@@ -1,0 +1,32 @@
+let sieve = new Array(10000001);
+let primes = [];
+
+function generateSieve() {
+  for(let i=0; i<sieve.length; ++i) {
+    sieve[i] = true;
+  }
+  sieve[0] = sieve[1] = false;
+
+  for(let i=2; i*i<sieve.length; ++i) {
+    if(sieve[i]) {
+      for(let j=i*i; j<sieve.length; j+=i) {
+        sieve[j] = false;
+      }
+    }
+  }
+
+  for(let i=0; i<sieve.length; ++i) {
+    if(sieve[i])
+      primes.push(i);
+  }
+}
+
+function nthPrime(n) {
+  // Good luck!
+
+  generateSieve();
+
+  return primes[n-1];
+}
+
+nthPrime(10001);
