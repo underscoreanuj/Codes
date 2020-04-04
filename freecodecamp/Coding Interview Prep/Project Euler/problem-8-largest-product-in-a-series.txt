@@ -38,8 +38,6 @@ function largestProductinaSeries(n) {
     }
   }
 
-  console.log(max_result);
-
   return max_result;
 }
 
