@@ -1,0 +1,33 @@
+function generateSieve(SIEVE_SIZE) {
+  let sieve = new Array(SIEVE_SIZE);
+  let result = 0;
+
+  for(let i=0; i<SIEVE_SIZE; ++i) {
+    sieve[i] = true;
+  }
+
+  sieve[0] = sieve[1] = false;
+
+  for(let i=2; i*i<SIEVE_SIZE; ++i) {
+    if(sieve[i]) {
+      for(let j=i*i; j<SIEVE_SIZE; j+=i)
+        sieve[j] = false;
+    }
+  }
+
+  for(let i=2; i<SIEVE_SIZE; ++i) {
+    if(sieve[i])
+      result += i;
+  }
+
+  return result;
+
+}
+
+
+function primeSummation(n) {
+  // Good luck!
+  return generateSieve(n);
+}
+
+primeSummation(2000000);
