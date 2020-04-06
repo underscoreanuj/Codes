@@ -43,16 +43,12 @@ public:
 
         for (int i = 1; i < intervals.size(); ++i)
         {
-            // overlapping time interval
-            if (intervals[i].start <= PQ.top())
-            {
-                PQ.push(intervals[i].end);
-            }
-            else
+            // non-overlapping time interval -> can be assigned an existing room
+            if (intervals[i].start > PQ.top())
             {
                 PQ.pop();
-                PQ.push(intervals[i].end);
             }
+            PQ.push(intervals[i].end);
         }
 
         return PQ.size();
