@@ -24,11 +24,14 @@ public:
 
       for (int i = 0; i < nums.size(); ++i)
       {
+         // add the new element meanwhile replacing all smaller elements
          while (!window.empty() && nums[i] >= nums[window.back()])
             window.pop_back();
          window.emplace_back(i);
          if (i >= k - 1)
             result.emplace_back(nums[window.front()]);
+
+         // remove all indices outside the next window in left
          while (!window.empty() && window.front() <= i - k + 1)
             window.pop_front();
       }
