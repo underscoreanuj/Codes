@@ -1,0 +1,63 @@
+let MEM = new Array(100000);
+
+for(let i=0; i<100000; ++i) {
+  MEM[i] = null;
+}
+
+function divisorCount(n) {
+  if(MEM[n] !== null)
+    return MEM[n];
+
+  let result = 1;
+  let initial_n = n;
+
+  let ct = 1;
+  while(~n&1) {
+    ++ct;
+    n /= 2;
+  }
+
+  result *= ct;
+
+  for(let i=3; i*i<=n; ++i) {
+    if(n%i == 0) {
+      ct = 1;
+      while(n%i == 0) {
+        ++ct;
+        n /= i;
+      }
+      result *= ct;
+    }
+  }
+
+  if(n > 2) {
+    result *= 2;
+  }
+
+  MEM[initial_n] = result;
+
+  return result;
+}
+
+
+function divisibleTriangleNumber(n) {
+  // Good luck!
+  let val = 1, divCount = 0;
+
+  while(true) {
+    if(~val&1) {
+      divCount = divisorCount(val/2) * divisorCount((val+1));
+    }
+    else {
+      divCount = divisorCount(val) * divisorCount((val+1)/2);
+    }
+    if(divCount > n) 
+      return (val*(val+1))/2;
+    ++val;
+  }
+  return -1;
+}
+
+// console.log(28, divisorCount(28))
+
+console.log(divisibleTriangleNumber(500));
