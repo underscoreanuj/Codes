@@ -1,0 +1,61 @@
+function addNumStrings(num1, num2) {
+  if(num1.length < num2.length) {
+    return addNumStrings(num2, num1);
+  }
+
+  let res = [];
+  for(let i=0; i<=num1.length; ++i) {
+    res.push(0);
+  }
+
+  let i = num1.length-1, sum = 0;
+  for(let j=num2.length-1; j>=0; --j) {
+    sum = res[i+1] + parseInt(num1[i]) + parseInt(num2[j]);
+    res[i+1] = sum%10;
+    res[i] += Math.floor(sum/10);
+    --i;
+  }
+  while(i>=0) {
+    sum = res[i+1] + parseInt(num1[i]);
+    res[i+1] = sum%10;
+    res[i] += Math.floor(sum/10);
+    --i;
+  }
+
+  if(res[0] == 0)
+    res.shift();
+
+  let result = "";
+  for(let n of res)
+    result += n;
+  
+  return result;
+}
+
+function largeSumUtil(arr, start, end) {
+  if(start === end)
+    return arr[start];
+  if(end-start === 1)
+    return addNumStrings(arr[start], arr[end]);
+
+  let mid = start + ((end - start)>>1);
+  let left = largeSumUtil(arr, start, mid);
+  let right = largeSumUtil(arr, mid+1, end);
+
+  return addNumStrings(left, right);
+}
+
+function largeSum(arr) {
+  // Good luck!
+  let result = largeSumUtil(arr, 0, arr.length-1);
+  return parseInt(result.substr(0, 10));
+}
+
+// Only change code above this line
+
+const testNums = [
+  '37107287533902102798797998220837590246510135740250',
+  '46376937677490009712648124896970078050417018260538'
+];
+
+largeSum(testNums);
