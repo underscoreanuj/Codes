@@ -45,19 +45,20 @@ class Solution
 public:
     bool wordBreak(string s, vector<string> &wordDict)
     {
+
         unordered_set<string> wDict(wordDict.begin(), wordDict.end());
-        vector<bool> tab(s.size() + 1, false);
-
-        // empty string can be created by wordDict
+        vector<bool> tab(s.length() + 1, false);
         tab[0] = true;
+        string subWord;
 
-        for (int i = 1; i <= s.size(); ++i)
+        for (int i = 1; i <= s.length(); ++i)
         {
             for (int j = i - 1; j >= 0; --j)
             {
                 if (tab[j])
                 {
-                    if (wDict.count(s.substr(j, i - j)) > 0)
+                    subWord = s.substr(j, i - j);
+                    if (wDict.count(subWord) > 0)
                     {
                         tab[i] = true;
                         break;
@@ -66,6 +67,45 @@ public:
             }
         }
 
-        return tab[s.size()];
+        return tab[s.length()];
+    }
+};
+
+// bfs based solution (think of it as a bfs of a graph)
+
+class Solution
+{
+public:
+    bool wordBreak(string s, vector<string> &wordDict)
+    {
+
+        unordered_set<string> wDict(wordDict.begin(), wordDict.end());
+        vector<bool> vis(s.length(), false);
+        queue<int> Q;
+        string subWord;
+        int idx = -1;
+        Q.push(0);
+
+        while (!Q.empty())
+        {
+            idx = Q.front();
+            Q.pop();
+            if (!vis[idx])
+            {
+                vis[idx] = true;
+                for (int i = 1; i <= s.size() - idx; ++i)
+                {
+                    subWord = s.substr(idx, i);
+                    if (wDict.count(subWord) > 0)
+                    {
+                        if (idx + i == s.length())
+                            return true;
+                        Q.push(idx + i);
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 };
