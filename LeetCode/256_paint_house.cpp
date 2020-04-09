@@ -1,12 +1,12 @@
-// solved on lintcode: https://www.lintcode.com/problem/paint-house-ii/description
+// solved on lintcode: https://www.lintcode.com/problem/paint-house/description
 
 class Solution {
 public:
     /**
-     * @param costs: n x k cost matrix
-     * @return: an integer, the minimum cost to paint all houses
+     * @param costs: n x 3 cost matrix
+     * @return: An integer, the minimum cost to paint all houses
      */
-    int minCostII(vector<vector<int>> &costs) {
+    int minCost(vector<vector<int>> &costs) {
         // write your code here
         if(costs.size() == 0)
             return 0;
@@ -41,6 +41,6 @@ public:
             minTab = {first_min, second_min};
         }
      
-        return *min_element(costs[costs.size()-1].begin(), costs[costs.size()-1].end());       
+        return *min_element(costs[costs.size()-1].begin(), costs[costs.size()-1].end());        
     }
 };
