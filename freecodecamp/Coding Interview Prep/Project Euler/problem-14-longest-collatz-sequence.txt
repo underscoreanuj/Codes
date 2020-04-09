@@ -1,0 +1,39 @@
+let MEM = new Array(100001)
+
+for(let i=0; i<MEM.length; ++i)
+  MEM[i] = null;
+
+function getCollatzSeqLength(n) {
+  if(n === 1) 
+    return 1;
+
+  if(n < MEM.length && MEM[n] !== null)
+    return MEM[n];
+
+  let res = 1;
+  if(~n&1)
+    res += getCollatzSeqLength(n>>1);
+  else 
+    res += getCollatzSeqLength(3*n+1);
+
+  if(n < MEM.length)
+    MEM[n] = res;
+
+  return res;
+}
+
+function longestCollatzSequence(limit) {
+  // Good luck!
+  let max_len = 0, len = 0, num = 0;
+  for(let i=1; i<=limit; ++i) {
+    len = getCollatzSeqLength(i);
+    if(max_len <= len) {
+      max_len = len;
+      num = i;
+    }
+  }
+
+  return num;
+}
+
+longestCollatzSequence(5874);
