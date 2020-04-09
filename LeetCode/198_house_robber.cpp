@@ -17,7 +17,7 @@ public:
     }
 };
 
-// dp solution without recursion
+// iterative DP solution
 
 class Solution
 {
