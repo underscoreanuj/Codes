@@ -1,0 +1,28 @@
+function multiplyByTwo(numArray) {
+  let carry = 0, prod = 0;
+  for(let i=numArray.length-1; i>=0; --i) {
+    numArray[i] = numArray[i] * 2 + carry;
+    carry = Math.floor(numArray[i]/10);
+    numArray[i] %= 10;
+  }
+  if(carry) {
+    numArray.unshift(carry);
+  }
+}
+
+function powerDigitSum(exponent) {
+  // Good luck!
+  if(exponent == 0) return 1;
+  let result = [1];
+  
+  while(exponent--) {
+    multiplyByTwo(result);
+  }
+
+  let i = 0;
+  result.forEach(e => {i += e});
+
+  return i;
+}
+
+powerDigitSum(10);
