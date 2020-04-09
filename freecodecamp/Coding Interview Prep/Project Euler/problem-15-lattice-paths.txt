@@ -1,0 +1,11 @@
+function latticePaths(gridSize) {
+  // Good luck!
+  let result = 1;
+  for(let i=gridSize+1; i<=2*gridSize; ++i) {
+    result *= i;
+    result /= (i-gridSize);
+  }
+  return result;
+}
+
+latticePaths(20);
