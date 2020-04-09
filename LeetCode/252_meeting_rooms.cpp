@@ -1,4 +1,4 @@
-// solved on lintcode: https://www.lintcode.com/problem/meeting-rooms-ii/description
+// solved on lintcode: https://www.lintcode.com/problem/meeting-rooms/description<Paste>
 
 /**
  * Definition of Interval:
@@ -16,30 +16,29 @@ class Solution
 public:
     /**
      * @param intervals: an array of meeting time intervals
-     * @return: the minimum number of conference rooms required
+     * @return: if a person could attend all meetings
      */
-    int minMeetingRooms(vector<Interval> &intervals)
+    bool canAttendMeetings(vector<Interval> &intervals)
     {
         // Write your code here
+        if (intervals.size() == 0)
+            return true;
+
         sort(intervals.begin(), intervals.end(), [](const Interval &a, const Interval &b) {
             if (a.start == b.start)
                 return a.end < b.end;
-            return a.start < b.start;
+            return a.start < b.end;
         });
 
-        priority_queue<int, vector<int>, greater<int>> PQ;
-        PQ.push(intervals[0].end);
+        int prevEndTime = intervals[0].end;
 
         for (int i = 1; i < intervals.size(); ++i)
         {
-            // non-overlapping time interval -> can be assigned an existing room
-            if (intervals[i].start > PQ.top())
-            {
-                PQ.pop();
-            }
-            PQ.push(intervals[i].end);
+            if (intervals[i].start < prevEndTime)
+                return false;
+            prevEndTime = intervals[i].end;
         }
 
-        return PQ.size();
+        return true;
     }
 };
