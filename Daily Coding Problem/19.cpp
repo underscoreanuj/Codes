@@ -14,59 +14,48 @@
 
 // my solution
 
-class Solution
-{
+
+class Solution {
 public:
     /**
      * @param costs: n x k cost matrix
      * @return: an integer, the minimum cost to paint all houses
      */
-    int minCostII(vector<vector<int>> &costs)
-    {
+    int minCostII(vector<vector<int>> &costs) {
         // write your code here
-        if (costs.size() == 0)
-        {
+        if(costs.size() == 0)
             return 0;
-        }
-        if (costs.size() == 1)
-        {
+            
+        if(costs.size() == 1)
             return *min_element(costs[0].begin(), costs[0].end());
-        }
-
-        int n = costs.size(), k = costs[0].size();
-        vector<vector<int>> tab(n, vector<int>(k, 0));
-        vector<pair<int, int>> minT;
-        int min_f = 0, min_s = 1, idx = 0;
-        pair<int, int> prev;
-
-        for (int i = 0; i < n; ++i)
-        {
-            min_f = 0;
-            min_s = 1;
-            for (int j = 0; j < k; ++j)
-            {
-                tab[i][j] = costs[i][j];
-
-                if (i > 0)
-                {
-                    prev = minT.back();
-                    idx = (j == prev.first ? prev.second : prev.first);
-                    tab[i][j] += tab[i - 1][idx];
+            
+        pair<int, int> minTab;        // stores the minimum and second minimum of each preceeding row
+    
+        int first_min = 0, second_min = 0;
+    
+        for(int i=0; i<costs.size(); ++i) {
+            first_min = 0, second_min = 1;
+            for(int j=0; j<costs[i].size(); ++j) {
+                if(i > 0) {
+                    if(j == minTab.first) {
+                        costs[i][j] += costs[i-1][minTab.second];
+                    }
+                    else {
+                        costs[i][j] += costs[i-1][minTab.first];
+                    }
                 }
-
-                if (tab[i][j] < tab[i][min_f])
-                {
-                    min_s = min_f;
-                    min_f = j;
+                if(costs[i][first_min] > costs[i][j]) {
+                    second_min = first_min;
+                    first_min = j;
                 }
-                else if (tab[i][j] < tab[i][min_s] && j != min_f)
-                {
-                    min_s = j;
+                else if(costs[i][second_min] > costs[i][j] && j != first_min) {
+                    second_min = j;
                 }
+                
             }
-            minT.push_back({min_f, min_s});
+            minTab = {first_min, second_min};
         }
-
-        return *min_element(tab[n - 1].begin(), tab[n - 1].end());
+     
+        return *min_element(costs[costs.size()-1].begin(), costs[costs.size()-1].end());       
     }
 };
