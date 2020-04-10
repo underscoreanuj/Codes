@@ -95,28 +95,46 @@ public:
     }
 };
 
-// brute-force recursive solution (gives TLE)
+// recursive solution with memoization
 
 class Solution
 {
 public:
-    int minDistance(string word1, string word2)
-    {
-        if (word1.length() == 0)
-            return word2.length();
-        if (word2.length() == 0)
-            return word1.length();
+    vector<vector<int>> MEM;
 
-        if (word1[0] != word2[0])
+    int minDistanceUtil(string &word1, string &word2, int idx1 = 0, int idx2 = 0)
+    {
+        if (idx1 == word1.length())
+            return word2.length() - idx2;
+        if (idx2 == word2.length())
+            return word1.length() - idx1;
+
+        if (MEM[idx1][idx2] > 0)
+            return MEM[idx1][idx2];
+
+        int result = 0;
+
+        if (word1[idx1] != word2[idx2])
         {
-            return min(min(
-                           1 + minDistance(word1, word2.substr(1)), // insert a char in word1
-                           1 + minDistance(word1.substr(1), word2)  // delete a char from word1
-                           ),
-                       1 + minDistance(word1.substr(1), word2.substr(1)) // replace a char in word1
-            );
+            result = 1 + min(min(
+                                 minDistanceUtil(word1, word2, idx1, idx2 + 1), // insert a char in word1
+                                 minDistanceUtil(word1, word2, idx1 + 1, idx2)  // delete a char from word1
+                                 ),
+                             minDistanceUtil(word1, word2, idx1 + 1, idx2 + 1) // replace a char in word1
+                         );
         }
         else
-            return minDistance(word1.substr(1), word2.substr(1));
+            result = minDistanceUtil(word1, word2, idx1 + 1, idx2 + 1);
+
+        MEM[idx1][idx2] = result;
+
+        return result;
+    }
+
+    int minDistance(string word1, string word2)
+    {
+        MEM = vector<vector<int>>(word1.size() + 1, vector<int>(word2.size() + 1, -1));
+
+        return minDistanceUtil(word1, word2);
     }
 };
