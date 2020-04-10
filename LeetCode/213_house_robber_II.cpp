@@ -1,3 +1,10 @@
+/*
+    simply use any solution of house robber 1 (198) and call it for
+    1. all houses except the first
+    2. all houses except the last
+    return the maximum of the two results
+*/
+
 class Solution
 {
 public:
