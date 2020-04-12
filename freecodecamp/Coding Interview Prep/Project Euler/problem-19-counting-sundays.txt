@@ -1,0 +1,40 @@
+let monthMap = {
+  0 : 3, 1 : 0, 2 : 3, 3 : 2, 4 : 3, 5 : 2, 6 : 3,
+  7 : 3, 8 : 2, 9 : 3, 10 : 2, 11 : 3,
+}
+
+function isLeapYr(year) {
+  return year%4 == 0 && (year%100 != 0 || year%400 == 0);
+}
+
+function countingSundays(firstYear, lastYear) {
+  // Good luck!
+
+  let start = (firstYear - 1900);
+  start += Math.floor((start-1)/4) + 1;
+  start %= 7;
+
+  let result = 0;
+
+  for(let y=firstYear; y<=lastYear; ++y) {
+
+    for(let m=0; m<12; ++m) {
+      if(start == 0)
+        ++result;
+
+      if(m == 1 && isLeapYr(y)) {
+        start += 1;
+      }
+      else {
+        start += monthMap[m];
+      }
+
+      start %= 7;
+    }
+
+  }
+
+  return result;
+}
+
+countingSundays(1943, 1946);
