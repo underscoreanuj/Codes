@@ -1,0 +1,55 @@
+function multiply(num1, num2) {
+  let m = num1.length;
+  let n = num2.length;
+  let result = new Array(m+n).fill(0);
+
+  for(let i=m-1; i>=0; --i) {
+    for(let j=n-1; j>=0; --j) {
+      result[i+j+1] += num1[i] * num2[j];
+      result[i+j] += Math.floor(result[i+j+1]/10);
+      result[i+j+1] = result[i+j+1]%10;
+    }
+  }
+
+  while(result[0] == 0)
+    result.shift();
+
+  return result;
+}
+
+function numToArray(n) {
+  let result = [];
+  while(n) {
+    result.push(n%10);
+    n = Math.floor(n/10);
+  }
+
+  let x = null, len = result.length;
+  for(let i=0; i<(len>>1); ++i) {
+    x = result[i];
+    result[i] = result[len-i-1];
+    result[len-i-1] = x;
+  }
+
+  return result;
+}
+
+function getFactorial(n) {
+  if(n == 1)
+    return [1];
+
+  return multiply(numToArray(n), getFactorial(n-1));
+}
+
+function sumFactorialDigits(n) {
+  // Good luck!
+  let fact = getFactorial(n);
+  let result = 0;
+  for(let f of fact)
+    result += f;
+
+
+  return result;
+}
+
+sumFactorialDigits(100);
