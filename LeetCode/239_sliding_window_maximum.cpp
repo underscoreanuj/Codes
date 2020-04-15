@@ -6,25 +6,33 @@ public:
     vector<int> maxSlidingWindow(vector<int> &nums, int k)
     {
         vector<int> result;
-        deque<int> window;
+        deque<int> win;
 
         for (int i = 0; i < nums.size(); ++i)
         {
             // add the new element meanwhile replacing all smaller elements
-            while (!window.empty() && nums[i] >= nums[window.back()])
-                window.pop_back();
-            window.emplace_back(i);
+            while (win.size() && nums[i] >= nums[win.back()])
+                win.pop_back();
+            win.push_back(i);
+
             if (i >= k - 1)
-                result.emplace_back(nums[window.front()]);
+                result.push_back(nums[win.front()]);
 
             // remove all indices outside the next window in left
-            while (!window.empty() && window.front() <= i - k + 1)
-                window.pop_front();
+            while (win.size() && win.front() <= i - k + 1)
+                win.pop_front();
         }
 
         return result;
     }
 };
+
+auto speedup = []() {
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
 
 // first solution
 
