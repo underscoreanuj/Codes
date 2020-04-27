@@ -37,19 +37,24 @@ int main()
 
         ll l = 0, r = 1e12, mid = 0;
         ll s = 0;
+        ll ans = 0, val = 0;
 
-        while (l < r)
+        while (l <= r)
         {
             mid = l + ((r - l) >> 1);
             s = getValue(A, mid, k);
 
             if (s >= k)
+            {
+                ans = mid;
+                val = s;
                 l = mid + 1;
+            }
             else
-                r = mid;
+                r = mid - 1;
         }
 
-        cout << l - 1 << " " << getValue(A, l - 1, k) << "\n";
+        cout << ans << " " << val << "\n";
     }
 
     return 0;
