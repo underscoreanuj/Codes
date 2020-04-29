@@ -15,7 +15,7 @@ public:
     int idx = 0;
     TreeNode *bstFromPreorder(vector<int> &preorder, int limit = INT_MAX)
     {
-        if (preorder.size() == 0 || idx >= preorder.size() || preorder[idx] >= limit)
+        if (idx >= preorder.size() || preorder[idx] >= limit)
             return NULL;
 
         TreeNode *root = new TreeNode(preorder[idx++]);
