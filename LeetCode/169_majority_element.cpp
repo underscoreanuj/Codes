@@ -4,15 +4,12 @@ class Solution
 public:
     int majorityElement(vector<int> &nums)
     {
-        int cur = nums[0], count = 1;
-        for (int i = 1; i < nums.size(); ++i)
+        int cur = 0, count = 0;
+        for (int &n : nums)
         {
-            count += nums[i] == cur ? 1 : -1;
             if (count == 0)
-            {
-                cur = nums[i];
-                count = 1;
-            }
+                cur = n;
+            count += cur == n ? 1 : -1;
         }
 
         return cur;
