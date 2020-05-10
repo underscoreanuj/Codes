@@ -1,3 +1,5 @@
+// solved on: https://www.lintcode.com/problem/the-maze-iii/description
+
 // bfs solution
 
 class Solution
