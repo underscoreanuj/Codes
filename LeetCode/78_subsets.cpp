@@ -1,52 +1,60 @@
-// class Solution {
-// public:
-//     vector<vector<int>> subsets(vector<int>& nums) {
-//         if(nums.size() == 0) return {{}};
-//         vector<vector<int>> ret = {{}};
-//         vector<int> sol;
-//         int sz = 0;
+// iterative solution
 
-//         for(int n : nums) {
-//             sz = ret.size();
-//             for(int i=0; i<sz; ++i) {
-//                 sol.clear();
-//                 sol = ret[i];
-//                 sol.emplace_back(n);
-//                 ret.emplace_back(sol);
-//             }
-//         }
+class Solution
+{
+public:
+    vector<vector<int>> subsets(vector<int> &nums)
+    {
+        if (nums.size() == 0)
+            return {{}};
+        vector<vector<int>> ret = {{}};
+        vector<int> sol;
+        int sz = 0;
 
-//         return ret;
-//     }
-// };
+        for (int n : nums)
+        {
+            sz = ret.size();
+            for (int i = 0; i < sz; ++i)
+            {
+                sol.clear();
+                sol = ret[i];
+                sol.emplace_back(n);
+                ret.emplace_back(sol);
+            }
+        }
 
-// class Solution
-// {
-// public:
-//     void subsetUtil(vector<vector<int>> &ret, vector<int> &nums, vector<int> &sol, int ind)
-//     {
-//         ret.emplace_back(sol);
+        return ret;
+    }
+};
 
-//         for (int i = ind; i < nums.size(); ++i)
-//         {
-//             sol.emplace_back(nums[i]);
-//             subsetUtil(ret, nums, sol, i + 1);
-//             sol.pop_back();
-//         }
-//     }
+// recursive solution
 
-//     vector<vector<int>> subsets(vector<int> &nums)
-//     {
-//         if (nums.size() == 0)
-//             return {{}};
-//         vector<vector<int>> ret = {};
-//         vector<int> sol;
+class Solution
+{
+public:
+    void subsetsUtil(vector<int> &nums, vector<vector<int>> &result, vector<int> &sol, int idx = 0)
+    {
+        result.emplace_back(sol);
 
-//         subsetUtil(ret, nums, sol, 0);
+        for (int i = idx; i < nums.size(); ++i)
+        {
+            sol.emplace_back(nums[i]);
+            subsetsUtil(nums, result, sol, i + 1);
+            sol.pop_back();
+        }
+    }
 
-//         return ret;
-//     }
-// };
+    vector<vector<int>> subsets(vector<int> &nums)
+    {
+        vector<vector<int>> result;
+        vector<int> sol;
+        subsetsUtil(nums, result, sol);
+
+        return result;
+    }
+};
+
+// bit manipulation solution
 
 class Solution
 {
