@@ -2,6 +2,25 @@
 
 using namespace std;
 
+auto speedup = []() {
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
+
+bool isValid(vector<int> &GR, vector<int> &PL, int time)
+{
+    int count = 0;
+    for (int i = 0; i < PL.size(); ++i)
+    {
+        for (int j = 0; j < time && count < GR.size() && PL[i] >= GR[count]; j += 2)
+            ++count;
+    }
+
+    return count == GR.size();
+}
+
 int main()
 {
     int n = 0, m = 0;
@@ -14,33 +33,28 @@ int main()
     for (int i = 0; i < m; ++i)
         cin >> planes[i];
 
-    sort(groups.rbegin(), groups.rend());
-    sort(planes.rbegin(), planes.rend());
+    sort(groups.begin(), groups.end());
+    sort(planes.begin(), planes.end());
 
-    if (groups[0] > planes[0])
+    if (groups[groups.size() - 1] > planes[planes.size() - 1])
     {
         cout << "-1";
         return 0;
     }
 
-    int j = 0, time = 1;
-    for (int i = 0; i < n; ++i)
+    int l = 1, r = 2 * (n - 1) + 1, mid = 0;
+
+    while (l < r)
     {
-        if (j < m)
-        {
-            if (planes[j] >= groups[i])
-                ++j;
-            else
-                time += 2;
-        }
+        mid = l + ((r - l) >> 1);
+
+        if (isValid(groups, planes, mid))
+            r = mid;
         else
-        {
-            time += 2 * (((n - i) / m) + 1);
-            break;
-        }
+            l = mid + 1;
     }
 
-    cout << time;
+    cout << l;
 
     return 0;
 }
