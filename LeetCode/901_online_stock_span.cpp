@@ -11,24 +11,17 @@ public:
     int next(int price)
     {
         int count = 1;
-        while (!this->stocks.empty() && this->stocks.top().first <= price)
+        while (!stocks.empty() && stocks.top().first <= price)
         {
-            count += this->stocks.top().second;
-            this->stocks.pop();
+            count += stocks.top().second;
+            stocks.pop();
         }
 
-        this->stocks.push({price, count});
+        stocks.push({price, count});
 
         return count;
     }
 };
-
-auto speedup = []() {
-    std::ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    return nullptr;
-}();
 
 /**
  * Your StockSpanner object will be instantiated and called as such:
@@ -61,13 +54,6 @@ public:
         return count;
     }
 };
-
-auto speedup = []() {
-    std::ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    return nullptr;
-}();
 
 /**
  * Your StockSpanner object will be instantiated and called as such:
