@@ -1,3 +1,37 @@
+// a more efficient solution
+
+class Solution
+{
+public:
+    int lengthOfLongestSubstring(string s)
+    {
+        int result = 0, l = 0;
+        vector<int> MEM(128, 0);
+
+        for (int r = 0; r < s.length(); ++r)
+        {
+            if (MEM[s[r]] > 0)
+            {
+                while (s[l] != s[r])
+                    --MEM[s[l++]];
+                --MEM[s[l++]];
+            }
+            ++MEM[s[r]];
+            result = max(result, r - l + 1);
+        }
+
+        return result;
+    }
+};
+
+auto speedup = []() {
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
+
+// normal solution
 class Solution
 {
 public:
