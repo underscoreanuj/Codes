@@ -1,3 +1,5 @@
+// dp solution
+
 class Solution
 {
 public:
@@ -31,3 +33,33 @@ public:
         return tab[s_len][p_len];
     }
 };
+
+// recursive solution
+
+class Solution
+{
+public:
+    bool isMatch(string &s, string &p, int i = 0, int j = 0)
+    {
+        if (j >= p.length())
+            return i == s.length();
+
+        bool match = (i != s.length() && (s[i] == p[j] || p[j] == '.'));
+
+        if (p.length() - j >= 2 && p[j + 1] == '*')
+        {
+            return (isMatch(s, p, i, j + 2) || (match && isMatch(s, p, i + 1, j)));
+        }
+        else
+        {
+            return match && isMatch(s, p, i + 1, j + 1);
+        }
+    }
+};
+
+auto speedup = []() {
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
