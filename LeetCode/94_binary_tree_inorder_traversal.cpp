@@ -1,6 +1,58 @@
-// iterative solution
+// iterative solution - without stack - Morris Traversal  (Tree is not modified)
 
-// recursive solution
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution
+{
+public:
+    vector<int> inorderTraversal(TreeNode *root)
+    {
+        vector<int> result;
+
+        TreeNode *cur = root;
+        TreeNode *tmp = NULL;
+
+        while (cur)
+        {
+            if (cur->left)
+            {
+                tmp = cur->left;
+                while (tmp->right && tmp->right != cur)
+                    tmp = tmp->right;
+
+                if (tmp->right)
+                {
+                    tmp->right = NULL;
+                    result.emplace_back(cur->val);
+                    cur = cur->right;
+                }
+                else
+                {
+                    tmp->right = cur;
+                    cur = cur->left;
+                }
+            }
+            else
+            {
+                result.emplace_back(cur->val);
+                cur = cur->right;
+            }
+        }
+
+        return result;
+    }
+};
+
+// iterative solution - without stack - Morris Traversal  (modifies tree)
 
 /**
  * Definition for a binary tree node.
@@ -11,8 +63,6 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-
-// iterative solution - without stack - Morris Traversal
 
 class Solution
 {
