@@ -1,3 +1,5 @@
+// reference : https://leetcode.com/problems/tiling-a-rectangle-with-the-fewest-squares/discuss/414804/A-Review%3A-Why-This-Problem-Is-a-Tip-of-the-Iceberg
+
 // more efficient backtracking solution (uses 1d vector to store heights of squares and extra greedy method to prune the search space)
 
 class Solution
