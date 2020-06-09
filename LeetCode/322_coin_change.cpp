@@ -85,13 +85,10 @@ public:
         vector<int> tab(amount + 1, amount + 1);
         tab[0] = 0;
 
-        for (int i = 1; i <= amount; ++i)
+        for (int &c : coins)
         {
-            for (int &c : coins)
-            {
-                if (i >= c)
-                    tab[i] = min(tab[i], 1 + tab[i - c]);
-            }
+            for (int i = c; i <= amount; ++i)
+                tab[i] = min(tab[i], 1 + tab[i - c]);
         }
 
         return tab[amount] == amount + 1 ? -1 : tab[amount];
