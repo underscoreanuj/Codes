@@ -23,29 +23,36 @@ class Solution
 public:
     Node *connect(Node *root)
     {
-        if (!root)
-            return NULL;
-
         Node *parent = root;
-        Node *cur = NULL;
+        Node *cur = new Node(999);
+        Node *prev = cur;
 
-        while (parent->left)
+        while (parent)
         {
-            cur = parent;
-            while (cur)
-            {
-                cur->left->next = cur->right;
-                if (cur->next)
-                    cur->right->next = cur->next->left;
+            cur->next = parent->left;
+            if (cur->next)
                 cur = cur->next;
+            cur->next = parent->right;
+            if (cur->next)
+                cur = cur->next;
+            parent = parent->next;
+            if (!parent)
+            {
+                parent = prev->next;
+                cur = prev;
             }
-
-            parent = parent->left;
         }
 
         return root;
     }
 };
+
+auto speedup = []() {
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
 
 // constant extra space solution (neglecting stack space for recursion)
 
@@ -70,6 +77,20 @@ public:
 class Solution
 {
 public:
+    Node *getNext(Node *root)
+    {
+        while (root)
+        {
+            if (root->left)
+                return root->left;
+            if (root->right)
+                return root->right;
+
+            root = root->next;
+        }
+        return NULL;
+    }
+
     void connectUtil(Node *root)
     {
         if (!root)
@@ -77,14 +98,19 @@ public:
 
         if (root->left)
         {
-            root->left->next = root->right;
-            if (root->next)
-                root->right->next = root->next->left;
+            if (root->right)
+                root->left->next = root->right;
+            else
+                root->left->next = getNext(root->next);
         }
 
-        connectUtil(root->left);
+        if (root->right)
+            root->right->next = getNext(root->next);
+
         connectUtil(root->right);
+        connectUtil(root->left);
     }
+
     Node *connect(Node *root)
     {
         connectUtil(root);
@@ -132,12 +158,14 @@ public:
         Node *cur = NULL;
         Node *prev = NULL;
         int q_size = 0;
+
         Q.push(root);
 
         while (!Q.empty())
         {
             q_size = Q.size();
             prev = NULL;
+
             while (q_size--)
             {
                 cur = Q.front();
