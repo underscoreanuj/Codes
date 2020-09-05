@@ -1,3 +1,5 @@
+// O(n) solution
+
 class Solution
 {
 public:
@@ -31,3 +33,23 @@ auto speedup = []() {
     cout.tie(nullptr);
     return nullptr;
 }();
+
+// O(nlogn) solution
+
+class Solution
+{
+public:
+    int hIndex(vector<int> &citations)
+    {
+        sort(citations.begin(), citations.end());
+        int len = citations.size();
+
+        for (int i = 0; i < citations.size(); ++i)
+        {
+            if (citations[i] >= len - i)
+                return len - i;
+        }
+
+        return 0;
+    }
+};
