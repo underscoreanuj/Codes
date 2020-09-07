@@ -1,0 +1,31 @@
+let sieve = Array(10001).fill(1)
+let preSum = Array(10001).fill(0)
+
+function preCompute() {
+  sieve[1] = 0
+  sieve[2] = 1
+
+  for(let i = 2; i<10001; ++i) {
+    for(let j=i+i; j<10001; j+=i)
+      sieve[j] += i;
+  }
+
+  for(let i=2; i<10001; ++i) {
+    if(sieve[i] != i && sieve[sieve[i]] == i) {
+      preSum[i] = i;
+    }
+    preSum[i] += preSum[i-1];
+  }
+
+}
+
+preCompute()
+
+function sumAmicableNum(n) {
+  // Good luck!
+  
+
+  return preSum[n];
+}
+
+sumAmicableNum(10000);
