@@ -1,4 +1,4 @@
-// iterative solution (constant space) [Morris Traversal]
+// iterative solution (constant space) [Morris Traversal]   (note that we do in inorder traversal instead of preorder, and have changed the calulation process accordingly -> technically any dfs approach can be used)
 
 /**
  * Definition for a binary tree node.
