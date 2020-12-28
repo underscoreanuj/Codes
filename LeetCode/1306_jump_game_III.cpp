@@ -1,3 +1,30 @@
+// dfs approach
+
+class Solution
+{
+public:
+    bool canReach(vector<int> &arr, int start)
+    {
+        if (start >= 0 && start < arr.size() && arr[start] >= 0)
+        {
+            if (arr[start] == 0)
+                return true;
+            arr[start] = -arr[start];
+            return canReach(arr, start + arr[start]) || canReach(arr, start - arr[start]);
+        }
+        return false;
+    }
+};
+
+auto speedup = []() {
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return nullptr;
+}();
+
+// bfs approach
+
 class Solution
 {
 public:
