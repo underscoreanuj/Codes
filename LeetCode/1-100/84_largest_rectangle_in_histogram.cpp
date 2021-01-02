@@ -45,20 +45,19 @@ class Solution
 public:
     int largestRectangleArea(vector<int> &heights)
     {
-        heights.push_back(0);
+        heights.emplace_back(0);
+        int n = heights.size(), h = 0, w = 0, result = 0;
         stack<int> S;
         S.push(-1);
-        int result = 0, cur = 0, prev = 0;
 
-        for (int i = 0; i < heights.size(); ++i)
+        for (int i = 0; i < n; ++i)
         {
-            while (S.size() >= 2 && heights[i] < heights[S.top()])
+            while (S.size() > 1 && heights[i] < heights[S.top()])
             {
-                cur = S.top();
+                h = heights[S.top()];
                 S.pop();
-                prev = S.top();
-
-                result = max(result, (i - (prev + 1)) * heights[cur]);
+                w = i - S.top() - 1;
+                result = max(result, h * w);
             }
             S.push(i);
         }
