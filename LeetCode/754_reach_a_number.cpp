@@ -11,6 +11,6 @@ public:
 
         int diff = sum - target;
 
-        return diff == 0 ? step : (diff % 2 ? (step + 1 + step % 2) : step);
+        return diff % 2 == 0 ? step : (step + 1 + step % 2);
     }
 };
