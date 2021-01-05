@@ -22,8 +22,10 @@ public:
         if (root->val >= low && root->val <= high)
             result += root->val;
 
-        result += rangeSumBST(root->left, low, high);
-        result += rangeSumBST(root->right, low, high);
+        if (root->val >= low)
+            result += rangeSumBST(root->left, low, high);
+        if (root->val <= high)
+            result += rangeSumBST(root->right, low, high);
 
         return result;
     }
