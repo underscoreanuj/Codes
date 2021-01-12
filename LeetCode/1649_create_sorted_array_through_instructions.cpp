@@ -1,3 +1,5 @@
+// BIT based solution
+
 class Solution
 {
     vector<int> f;
