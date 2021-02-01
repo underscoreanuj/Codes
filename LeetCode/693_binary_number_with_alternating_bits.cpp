@@ -1,22 +1,29 @@
+// bitwise approach
+
 class Solution {
 public:
-  uint32_t reverseBits(uint32_t n) {
-    uint32_t result = 0;
-
-    forint i = 0;
-    i < (32; ++i) {
-      if ((1 << i) & n) {
-        result |= (1 << (31 - i));
-      }
-    }
-
-    return result;
+  bool hasAlternatingBits(int n) {
+    long long int x = n;
+    x ^= (x >> 1);
+    return (x & (x + 1)) == 0;
   }
 };
 
-auto speedup = []() {
-  std::ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  cout.tie(nullptr);
-  return nullptr;
-}();
+// standard approach
+
+class Solution {
+public:
+  bool hasAlternatingBits(int n) {
+    int prev = n % 2;
+    n >>= 1;
+
+    while (n) {
+      if (prev == n % 2)
+        return false;
+      prev = n % 2;
+      n >>= 1;
+    }
+
+    return true;
+  }
+};
